@@ -9,11 +9,12 @@ The project demonstrates a complete production-style data pipeline: from raw ing
 
 
 ## Architecture
-
+```
 Raw Sources
 ├── Supabase PostgreSQL  →  customers, policies, claims
 ├── Databricks Volumes   →  crash images (training), claim images (inference)
 └── Parquet Files        →  telematics driving data
+```
 
           ↓  Bronze Layer (raw ingestion)
           ↓  Silver Layer (cleaning, joins, transformations)
@@ -32,7 +33,7 @@ The pipeline follows the medallion architecture using Delta Live Tables (DLT), A
 ![confusion_matrix](confusion_matrix.png)
 
 ## Repository Structure
-
+```
 databricks-end-to-end-pipeline/
 ├── ingestion/
 │   ├── bronze_supabase_ingestion.py     # Incremental JDBC ingestion from Supabase
@@ -63,7 +64,7 @@ databricks-end-to-end-pipeline/
     │       └── image_metadata.csv       # Excluded via .gitignore
     └── training_imgs/
         └── images/                      # Excluded via .gitignore
-
+```
 
 
 ## Datasets
