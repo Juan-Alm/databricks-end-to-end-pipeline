@@ -1,0 +1,14 @@
+id: 3e6b5065-e1c2-4b00-bb8e-c67bb5abe593
+pipeline_type: WORKSPACE
+name: telematics_pipeline
+libraries:
+  - glob:
+      include: /Workspace/Users/juanjose.almonte@gmail.com/telematics_pipeline/telematics_pipeline/**
+schema: bronze
+continuous: false
+development: false
+photon: true
+channel: CURRENT
+catalog: workspace
+serverless: true
+root_path: /Workspace/Users/juanjose.almonte@gmail.com/telematics_pipeline

@@ -1,0 +1,17 @@
+id: 5c4973e9-08f6-437f-a3ea-1d80ffe0832d
+pipeline_type: WORKSPACE
+name: Transformations
+libraries:
+  - glob:
+      include: /Workspace/Users/juanjose.almonte@gmail.com/Transformations/transformations/**
+schema: silver
+continuous: false
+development: false
+photon: true
+channel: CURRENT
+catalog: workspace
+serverless: true
+root_path: /Workspace/Users/juanjose.almonte@gmail.com/Transformations
+environment:
+  dependencies:
+    - geopy==2.4.1
