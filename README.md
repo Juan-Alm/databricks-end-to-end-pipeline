@@ -25,11 +25,11 @@ The pipeline follows the medallion architecture using Delta Live Tables (DLT), A
 
 
 ## Machine Learning
-
+```
 1- Export (Export_Training_Data.py): Resizes training images to 224×224 pixels using a Pandas UDF and exports the Silver table as Parquet files to a Databricks Volume for external access
 2- Training (ML_Notebook.ipynb): Run in Google Colab (T4 GPU). Loads exported Parquet files, fine-tunes a pre-trained ResNet-50 model for three-class damage classification (major, minor, ok), tracks experiments and metrics with MLflow pointing to the Databricks workspace, and uploads trained model weights and label mapping back to the Volume
 3- Model: microsoft/resnet-50 fine-tuned via PyTorch and HuggingFace torchvision. Final layer replaced to output 3 classes.
-
+```
 ![confusion_matrix](confusion_matrix.png)
 
 ## Repository Structure
@@ -85,7 +85,7 @@ Google Colab account (free tier sufficient with T4 GPU runtime)
 GitHub account
 
 ### Steps
-
+```
 1- Set up volumes in main.default — claims_vol and training_imgs_vol with the folder structure shown above
 2- Upload training images to training_imgs_vol/crash_images/ organised into subfolders by label
 3- Configure Supabase credentials in bronze_supabase_ingestion.py
@@ -95,3 +95,4 @@ GitHub account
 7- Run ML_Notebook.ipynb in Colab with T4 GPU runtime — model weights upload back to the Volume automatically on completion
 8- Run Inference_and_Decision.py in Databricks to generate workspace.gold.claim_insights
 9- Schedule the job using the config in jobs/end_to_end_pipeline_job.yml to run all tasks daily in sequence
+```
