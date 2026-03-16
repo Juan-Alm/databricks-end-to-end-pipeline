@@ -1,0 +1,40 @@
+resources:
+  jobs:
+    end_to_end_pipeline:
+      name: end-to-end pipeline
+      schedule:
+        quartz_cron_expression: 48 0 9 * * ?
+        timezone_id: Pacific/Auckland
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: bronze_supabase_ingestion
+          notebook_task:
+            notebook_path: /Workspace/Users/juanjose.almonte@gmail.com/scripts/incremental_ingestion_supabase
+            source: WORKSPACE
+        - task_key: autoloader_claims
+          depends_on:
+            - task_key: bronze_supabase_ingestion
+          notebook_task:
+            notebook_path: /Workspace/Users/juanjose.almonte@gmail.com/scripts/autoloader_claims_ingestion
+            source: WORKSPACE
+        - task_key: telematics_ingestion
+          depends_on:
+            - task_key: autoloader_claims
+          pipeline_task:
+            pipeline_id: 3e6b5065-e1c2-4b00-bb8e-c67bb5abe593
+            full_refresh: false
+        - task_key: DLT_Pipeline_Transformations
+          depends_on:
+            - task_key: telematics_ingestion
+          pipeline_task:
+            pipeline_id: 5c4973e9-08f6-437f-a3ea-1d80ffe0832d
+            full_refresh: false
+        - task_key: Inference_and_Decision
+          depends_on:
+            - task_key: DLT_Pipeline_Transformations
+          notebook_task:
+            notebook_path: /Workspace/Users/juanjose.almonte@gmail.com/Inference_andDecision
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
